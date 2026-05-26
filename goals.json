@@ -1,0 +1,58 @@
+{
+  "goals": [
+    {
+      "id": "goal_1",
+      "title": "サンプル大目標：理想の生活を設計する",
+      "description": "自分のライフスタイルを意図的に構築する",
+      "status": "active",
+      "children": [
+        {
+          "id": "mid_1_1",
+          "title": "健康習慣を整える",
+          "description": "身体・精神ともに整った状態をベースにする",
+          "status": "active",
+          "children": [
+            {
+              "id": "task_1_1_1",
+              "title": "毎朝7時に起床する",
+              "status": "pending",
+              "done": true
+            },
+            {
+              "id": "task_1_1_2",
+              "title": "週3回30分の運動をする",
+              "status": "pending",
+              "done": true
+            },
+            {
+              "id": "task_1_1_3",
+              "title": "就寝前にスマホを触らない（23時以降）",
+              "status": "pending",
+              "done": true
+            }
+          ]
+        },
+        {
+          "id": "mid_1_2",
+          "title": "収入源を多角化する",
+          "description": "給与以外の収入を月3万円つくる",
+          "status": "active",
+          "children": [
+            {
+              "id": "task_1_2_1",
+              "title": "副業アイデアを3つ書き出す",
+              "status": "pending",
+              "done": true
+            },
+            {
+              "id": "task_1_2_2",
+              "title": "最も得意なスキルでランサーズに登録する",
+              "status": "pending",
+              "done": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+# Streamlit secrets (APIキーを含むためGit管理外)
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# macOS
+.DS_Store
