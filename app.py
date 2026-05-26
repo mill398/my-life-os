@@ -5,7 +5,7 @@ from google import genai
 
 # ── 設定 ──────────────────────────────────────────────────────────────────────
 GOALS_FILE = "goals.json"
-GEMINI_MODEL = "gemini-1.5-flash"
+GEMINI_MODEL = "gemini-2.0-flash-lite"
 
 st.set_page_config(
     page_title="My Life OS — Addy",
