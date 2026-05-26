@@ -1,9 +1,7 @@
 import os
 import json
-import uuid
 import streamlit as st
 from google import genai
-from google.genai import types
 
 # ── 設定 ──────────────────────────────────────────────────────────────────────
 GOALS_FILE = "goals.json"
@@ -23,10 +21,7 @@ def get_gemini_client():
     if not api_key:
         st.error("APIキーが設定されていません。Streamlit Cloud の Secrets か環境変数 `GEMINI_API_KEY` を設定してください。")
         st.stop()
-    return genai.Client(
-        api_key=api_key,
-        http_options={"api_version": "v1"},
-    )
+    return genai.Client(api_key=api_key)
 
 client = get_gemini_client()
 
@@ -234,9 +229,6 @@ elif page == "💬 AI壁打ち":
                 response = client.models.generate_content(
                     model=GEMINI_MODEL,
                     contents=prompt,
-                    config=types.GenerateContentConfig(
-                        temperature=0.4,
-                    ),
                 )
                 raw_json = response.text.strip()
                 # コードブロック除去
@@ -317,9 +309,6 @@ elif page == "🤖 Addyに相談":
                     response = client.models.generate_content(
                         model=GEMINI_MODEL,
                         contents=prompt,
-                        config=types.GenerateContentConfig(
-                            temperature=0.7,
-                        ),
                     )
                     st.markdown(
                         f"<div class='addy-bubble'>{response.text}</div>",
