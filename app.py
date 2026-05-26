@@ -114,15 +114,15 @@ FRAMEWORKS = {
             ("ボトルネック", "今一番詰まっているのはどこですか？ 1つだけ。"),
             ("速度バランス", "質と量、どちらを今は優先すべきか。なぜ？"),
         ],
-        "question": "6軸のうち、一番「答えにくい」と感じたのはどれですか？\nそこが今の本質的なボトルネックです。",
+        "question": "まず最初に — 何を売る（提供する）想定ですか？",
     },
     "criteria": {
         "title": "COMPLETION CRITERIA — 2 AXES",
         "axes": [
-            ("達成タイプ", "単月突破（1度でもOK）か、安定達成（3ヶ月連続など継続）か？"),
+            ("達成タイプ", "単月突破（1度でもOK）か、安定達成（3ヶ月連続など）か？"),
             ("指標", "売上・粗利・手取り・入金 — どの数字で「達成」を判定しますか？"),
         ],
-        "question": "「あなた個人として」完了条件を一文で書いてください。\n例: 「miku個人として、手取り月50万円を3ヶ月連続で達成した時点で完了とする」",
+        "question": "まず — 「単月突破」と「安定達成」、どちらを目指しますか？",
     },
     "breakdown": {
         "title": "TASK BREAKDOWN — 6 PRIORITY ACTIONS",
@@ -134,7 +134,7 @@ FRAMEWORKS = {
             ("⑤ 学習・インプット", "今足りていない知識・スキルは何ですか？"),
             ("⑥ 環境・ネットワーク", "誰と繋がれば10倍速で進みますか？"),
         ],
-        "question": "今日の「最初の1手」を決めてください。明日ではなく、今日です。",
+        "question": "この6つの中で、今日着手できそうなのはどれですか？",
     },
     "action": {
         "title": "ACTION PLAN — EXECUTION FRAMEWORK",
@@ -145,68 +145,162 @@ FRAMEWORKS = {
             ("邪魔になるもの", "この行動を妨げる可能性があるものを正直に。"),
             ("他者に任せられるもの", "自分がやらなくていいタスクはどれですか？"),
         ],
-        "question": "今日の行動を「動詞 + 対象 + 期限」で一文に。\n例:「クライアントリスト20社を今日17時までに作成する」",
+        "question": "今日、残り何時間使えますか？",
     },
+}
+
+# ── Fallback: 2ターン目以降のガイド ──────────────────────────────────────────
+FOLLOWUP_GUIDES = {
+    "wallhit": [
+        ("到達式を決めよう",
+         "いいですね！では、その本命商品の単価 × 月件数の「到達式」のたたき台を決めましょう。\n"
+         "例： 10万円 × 5件 = 月50万円\n\n"
+         "あなたの場合、どの組み合わせが現実的ですか？"),
+        ("ボトルネック特定",
+         "なるほど。その到達式を達成するために、今一番詰まっているのはどこですか？\n"
+         "集客 / セールス / 商品品質 / 時間 / 資金 / スキル\n\n"
+         "1つ選んで教えてください。"),
+        ("今日の最初の1手",
+         "そのボトルネックを解消するために、「今日できる最初の1手」を1つだけ決めましょう。\n\n"
+         "動詞 + 対象 + 期限 の形で宣言してください。\n"
+         "例：「見込み客リスト10社を今日18時までに作る」"),
+    ],
+    "criteria": [
+        ("指標を選ぶ",
+         "了解です。では次に、何の数字で「達成」を判定しますか？\n\n"
+         "① 売上　② 粗利　③ 手取り　④ 入金\n\n"
+         "どれで見ますか？"),
+        ("完了条件を一文化",
+         "では完了条件を一文で書きましょう。\n\n"
+         "「miku個人として、[指標]が[数値]を[達成タイプ]した時点で完了とする」\n\n"
+         "当てはめると？"),
+        ("根拠の確認",
+         "その数値の根拠はありますか？\n現実的に達成できると思う理由を教えてください。"),
+    ],
+    "breakdown": [
+        ("最初の1手を決める",
+         "では6つの中から、「今日の最初の1手」を1つだけ選んでください。\n\n"
+         "どれが今すぐ着手できますか？"),
+        ("スケジュール化",
+         "いつ、どこで、何分かけてやりますか？\n\n"
+         "具体的にカレンダーに入れましょう。"),
+        ("障壁の除去",
+         "それを邪魔しそうなものはありますか？\n\n"
+         "事前に除けるものを1つ特定しましょう。"),
+    ],
+    "action": [
+        ("今日の1択",
+         "了解です。今日の残り時間で1つだけやるとしたら何ですか？\n\n"
+         "2〜3個候補を挙げてみてください。"),
+        ("宣言する",
+         "では「動詞 + 対象 + 期限」の形で宣言しましょう。\n\n"
+         "例：「〇〇を△時までに□□する」"),
+        ("完了の定義",
+         "それが完了したと判断できる基準は何ですか？\n\n"
+         "完了の定義を1文で決めましょう。"),
+    ],
 }
 
 # ── Mode config ───────────────────────────────────────────────────────────────
 MODE_CONFIG = {
     "wallhit": {
         "label": "⭐  ゴールの壁打ちをする",
-        "auto_msg": "ゴール『{g}』について壁打ちしたいです。論点を広げながら考えを整理してください。",
+        "auto_msg": "ゴール『{g}』について壁打ちしたいです。",
         "system": (
-            "あなたは「みきゅん」、ユーザーの目標達成を本質的に支援するAIコーチです。"
-            "ゴールが具体的な場合は6軸の論点（定義・現在地・収益モデル・到達式・ボトルネック・速度バランス）を提示し最も本質的な1問を投げかけてください。"
-            "ゴールが曖昧な場合は「達成したい変化」「なぜ今やるのか」「達成した状態」を言語化させるコーチングを行ってください。"
-            "余計なポジティブ演出は不要です。的確にシンプルに。"
+            "あなたは「みきゅん」、ユーザーの目標達成を支援するAIコーチです。"
+            "絶対に同じ質問・同じフレームワークを繰り返さないこと。"
+            "ユーザーの前の回答を必ず受け取り、会話を前に進めること。"
+        ),
+        "first_turn": (
+            "【1ターン目】月収50万円を勝ち取るための6軸（定義・現在地・収益モデル・到達式・ボトルネック・速度バランス）を"
+            "3行以内で簡潔に提示し、「何を売る（提供する）想定ですか？」と最初の1問だけを投げかけてください。"
+        ),
+        "followup_turn": (
+            "【フォローアップ】ユーザーが前の質問に回答しました。"
+            "必ず「なるほど」「いいですね！」等でその回答を受け取り、"
+            "前の文脈を完全に汲み取った上で次のステップ（到達式→ボトルネック→今日の1手）へ話を進めてください。"
+            "6軸の再提示・同じ質問の繰り返しは絶対に禁止です。"
         ),
     },
     "criteria": {
         "label": "⭐  完了条件を決める",
-        "auto_msg": "ゴール『{g}』の完了条件を明確にしたいです。達成状態が分かる基準を一緒に整理してください。",
+        "auto_msg": "ゴール『{g}』の完了条件を明確にしたいです。",
         "system": (
-            "あなたは「みきゅん」です。「単月突破」か「安定達成」かの達成タイプと、"
-            "「売上・粗利・手取り・入金」のどの指標で見るかの2軸を整理し、"
-            "ユーザーに合わせた完了条件の文章案（例: miku個人として〜）を提案して問いかけてください。"
-            "余計な前置き不要。"
+            "あなたは「みきゅん」です。絶対に同じ質問を繰り返さないこと。"
+            "ユーザーの回答を受け取り、次の軸の質問へ進んでください。"
+        ),
+        "first_turn": (
+            "【1ターン目】達成タイプの2択（単月突破 or 安定達成）を簡潔に説明し、"
+            "「どちらを目指しますか？」とだけ聞いてください。"
+        ),
+        "followup_turn": (
+            "【フォローアップ】ユーザーが回答しました。"
+            "その回答を受け取り、次の軸（指標の選択→完了条件の文章化→根拠確認）へ必ず進んでください。"
+            "同じ2択を再提示することは絶対に禁止です。"
         ),
     },
     "breakdown": {
         "label": "⭐  タスクを整理・分解する",
-        "auto_msg": "ゴール『{g}』を具体的なタスクに分解したいです。優先順も含めて整理してください。",
+        "auto_msg": "ゴール『{g}』を具体的なタスクに分解したいです。",
         "system": (
-            "あなたは「みきゅん」です。"
-            "ビジネスや目標達成の流れに沿った優先順位付きの6本の子ゴール案をロジカルに提示し、"
-            "「今日の最初の1手」を明確に指定してください。余計な前置き不要。"
+            "あなたは「みきゅん」です。絶対に同じリストを繰り返さないこと。"
+            "ユーザーの選択を受け取り、その項目の具体化・スケジュール化・障壁除去へ進んでください。"
+        ),
+        "first_turn": (
+            "【1ターン目】優先順位付きの6本の子ゴール案をロジカルに提示し、"
+            "「この中で今日着手できそうなのはどれですか？」とだけ聞いてください。"
+        ),
+        "followup_turn": (
+            "【フォローアップ】ユーザーが選択・回答しました。"
+            "その内容を受け取り、スケジュール化（いつ・どこで・何分）→障壁の除去→宣言 へ必ず進んでください。"
+            "6本リストの再提示は絶対に禁止です。"
         ),
     },
     "action": {
         "label": "⭐  みきゅんにやってもらう",
-        "auto_msg": "ゴール『{g}』の実行を進めたいです。次にやることと進め方を一緒に整理してください。",
+        "auto_msg": "ゴール『{g}』の実行を進めたいです。",
         "system": (
-            "あなたは「みきゅん」です。現在地が「目標名だけ立っている状態」であることを前提に、"
-            "実行単位まで落とし込むための具体的なアクションプランと、"
-            "次に進むための本質的な質問を投げかけてください。余計な前置き不要。"
+            "あなたは「みきゅん」です。絶対に同じプランを繰り返さないこと。"
+            "ユーザーの状況を受け取り、今日の1手→宣言→完了定義へ段階的に進んでください。"
+        ),
+        "first_turn": (
+            "【1ターン目】現在地が「目標名だけ立っている状態」を前提に、"
+            "「今日、残り何時間使えますか？」とだけ聞いてください。"
+        ),
+        "followup_turn": (
+            "【フォローアップ】ユーザーが回答しました。"
+            "使える時間・状況を受け取り、今日の具体的な1択→「動詞+対象+期限」での宣言→完了の定義 へ必ず進んでください。"
+            "同じ質問・同じプランの繰り返しは絶対に禁止です。"
         ),
     },
 }
 
 # ── AI functions ──────────────────────────────────────────────────────────────
+def user_turn_count(messages):
+    return sum(1 for m in messages if m["role"] == "user")
+
+
 def call_mikyun(mode_key, messages, goal_name):
     """Returns (text, is_fallback)."""
     if not client:
         return "", True
     cfg = MODE_CONFIG[mode_key]
-    history = "".join(
-        f"{'ユーザー' if m['role']=='user' else 'みきゅん'}: {m['content']}\n\n"
+    is_first = user_turn_count(messages) == 1
+    turn_instruction = cfg["first_turn"] if is_first else cfg["followup_turn"]
+
+    history_parts = [
+        f"{'ユーザー' if m['role'] == 'user' else 'みきゅん'}: {m['content']}"
         for m in messages[:-1]
-    )
+    ]
+    history = "\n\n".join(history_parts)
     last = messages[-1]["content"]
+
     prompt = (
         f"{cfg['system']}\n\n"
         f"現在のゴール:『{goal_name}』\n\n"
-        f"{('会話履歴:\n' + history) if history else ''}"
-        f"ユーザー: {last}\n\nみきゅんとして回答:"
+        f"{turn_instruction}\n\n"
+        f"{('【会話履歴】\n' + history + chr(10) + chr(10)) if history else ''}"
+        f"ユーザー: {last}\n\nみきゅん:"
     )
     try:
         res = client.models.generate_content(model=GEMINI_MODEL, contents=prompt)
@@ -267,6 +361,16 @@ def render_framework(mode_key):
         f'{items_html}'
         f'<div style="margin-top:14px;padding-top:12px;border-top:1px solid #111;color:#ccc;font-size:.9rem;line-height:1.65;">'
         f'💬 {question_html}</div>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+
+def render_followup_guide(title, question):
+    q_html = question.replace("\n", "<br>")
+    st.markdown(
+        f'<div style="background:#050505;border-left:2px solid #fff;padding:16px 20px;margin:8px 0;">'
+        f'<div style="font-size:.68rem;color:#444;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">みきゅん — {title}</div>'
+        f'<div style="color:#ddd;font-size:.92rem;line-height:1.8;">{q_html}</div>'
         f'</div>',
         unsafe_allow_html=True,
     )
@@ -499,8 +603,9 @@ elif st.session_state.nav_page == "mikyun":
                     st.session_state.waiting_response = True
                     st.rerun()
 
-    # AI call (runs on the rerun after a mode button is pressed)
+    # AI call（モードボタン押下後・フォローアップ送信後のrerunで実行）
     if st.session_state.waiting_response and st.session_state.current_mode:
+        turn = user_turn_count(st.session_state.messages)
         with st.spinner("みきゅんが考えています..."):
             text, is_fb = call_mikyun(
                 st.session_state.current_mode, st.session_state.messages, goal_name
@@ -510,6 +615,7 @@ elif st.session_state.nav_page == "mikyun":
             "content": text,
             "fallback": is_fb,
             "mode": st.session_state.current_mode,
+            "turn": turn,
         })
         st.session_state.waiting_response = False
 
@@ -517,18 +623,32 @@ elif st.session_state.nav_page == "mikyun":
     if st.session_state.messages:
         st.markdown('<hr style="border:none;border-top:1px solid #111;margin:18px 0;">', unsafe_allow_html=True)
 
-        for msg in st.session_state.messages:
+        for i, msg in enumerate(st.session_state.messages):
             if msg["role"] == "user":
+                # 最初の自動送信メッセージは非表示（UIノイズになるため）
+                if i == 0:
+                    continue
                 st.markdown(
                     f'<div style="background:#0a0a0a;border:1px solid #161616;padding:12px 16px;margin:8px 0;">'
                     f'<div style="font-size:.68rem;color:#333;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;">YOU</div>'
-                    f'<div style="color:#888;font-size:.9rem;">{msg["content"]}</div>'
+                    f'<div style="color:#ccc;font-size:.9rem;">{msg["content"]}</div>'
                     f'</div>',
                     unsafe_allow_html=True,
                 )
             else:
                 if msg.get("fallback"):
-                    render_framework(msg["mode"])
+                    turn = msg.get("turn", 1)
+                    mode = msg["mode"]
+                    if turn == 1:
+                        render_framework(mode)
+                    else:
+                        guides = FOLLOWUP_GUIDES.get(mode, [])
+                        guide_idx = min(turn - 2, len(guides) - 1)
+                        if guide_idx >= 0:
+                            title_g, question_g = guides[guide_idx]
+                            render_followup_guide(title_g, question_g)
+                        else:
+                            render_followup_guide("次のステップ", guides[-1][1] if guides else "具体的に教えてください。")
                 else:
                     content_html = msg["content"].replace("\n", "<br>")
                     st.markdown(
@@ -539,11 +659,11 @@ elif st.session_state.nav_page == "mikyun":
                         unsafe_allow_html=True,
                     )
 
-        # Follow-up input
+        # フォローアップ入力
         if st.session_state.current_mode and not st.session_state.waiting_response:
             with st.form("followup", clear_on_submit=True):
-                user_in = st.text_area("続けて聞く", height=80,
-                                       placeholder="質問や続きを入力...",
+                user_in = st.text_area("返答を入力", height=80,
+                                       placeholder="みきゅんの質問に答える...",
                                        label_visibility="collapsed")
                 if st.form_submit_button("送信 →", type="primary") and user_in.strip():
                     st.session_state.messages.append({"role": "user", "content": user_in.strip()})
